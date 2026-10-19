@@ -7,6 +7,7 @@
 set -euo pipefail
 
 LAB_DIR="${LAB_DIR:-/workspace/lab}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PORT="${LAB_PORT:-8899}"
 ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
@@ -104,7 +105,7 @@ open(path, "w").write(config)
 PY
 fi
 
-"$LAB_DIR/bin/start-server.sh"
+LAB_DIR="$LAB_DIR" "$SCRIPT_DIR/start-server.sh"
 
 WP=( "$LAB_DIR/bin/php" "$LAB_DIR/bin/wp-cli.phar" "--path=$LAB_DIR/wordpress" )
 if ! "${WP[@]}" core is-installed >/dev/null 2>&1; then

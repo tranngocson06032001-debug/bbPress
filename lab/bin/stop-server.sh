@@ -3,7 +3,7 @@
 # which can match the calling shell's own command line).
 set -euo pipefail
 
-LAB_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+LAB_DIR="${LAB_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 PID_FILE="$LAB_DIR/php-server.pid"
 
 if [ -f "$PID_FILE" ]; then

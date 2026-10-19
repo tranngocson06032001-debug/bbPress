@@ -2,7 +2,7 @@
 # Start the lab WordPress instance on PHP's built-in server.
 set -euo pipefail
 
-LAB_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+LAB_DIR="${LAB_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 PORT="${LAB_PORT:-8899}"
 PID_FILE="$LAB_DIR/php-server.pid"
 LOG_FILE="$LAB_DIR/php-server.log"
