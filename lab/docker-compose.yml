@@ -1,0 +1,61 @@
+name: wp-admin-rce-lab
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: ${DB_PASSWORD:?run ./bin/setup-docker.sh to create .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?run ./bin/setup-docker.sh to create .env}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  wordpress:
+    image: wordpress:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${LAB_PORT:-8899}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:?run ./bin/setup-docker.sh to create .env}
+      WORDPRESS_DEBUG: "1"
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'FS_METHOD', 'direct' );
+        /* Lab defaults: the Theme/Plugin editors and plugin installs stay enabled. */
+        define( 'DISALLOW_FILE_EDIT', false );
+        define( 'DISALLOW_FILE_MODS', false );
+        define( 'AUTOMATIC_UPDATER_DISABLED', true );
+        define( 'WP_AUTO_UPDATE_CORE', false );
+    volumes:
+      - wp_data:/var/www/html
+
+  cli:
+    image: wordpress:cli
+    depends_on:
+      db:
+        condition: service_healthy
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:?run ./bin/setup-docker.sh to create .env}
+    volumes:
+      - wp_data:/var/www/html
+    entrypoint: wp
+
+volumes:
+  db_data:
+  wp_data:

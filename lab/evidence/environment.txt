@@ -1,0 +1,40 @@
+# Lab environment (2026-10-19T07:57:11Z)
+
+## PHP
+PHP 8.4.23 (cli) (built: Jul  7 2026 05:22:53) (NTS gcc 14.2.0)
+Copyright (c) The PHP Group
+
+## WordPress
+7.1.3
+
+## Users and roles
+ID	user_login	roles
+1	admin	administrator
+
+## Administrator capabilities (selected)
+edit_themes
+activate_plugins
+edit_plugins
+edit_files
+manage_options
+unfiltered_html
+install_plugins
+
+## Relevant constants
+DISALLOW_FILE_EDIT = false
+DISALLOW_FILE_MODS = false
+FS_METHOD = 'direct'
+WP_DEBUG = true
+
+## Plugins
+name	status
+akismet	inactive
+hello	inactive
+sqlite-database-integration	inactive
+wp-admin-rce-lab	active
+db.php	dropin
+
+## HTTP reachability
+GET /              -> 200
+GET /wp-login.php  -> 200
+GET /?wplab_rce=1 (anonymous) -> 403

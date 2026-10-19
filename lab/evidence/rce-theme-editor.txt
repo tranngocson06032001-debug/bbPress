@@ -1,0 +1,11 @@
+[*] target: http://127.0.0.1:8899 (theme: twentytwentyfive, file: functions.php)
+[+] logged in as 'admin' -> http://127.0.0.1:8899/wp-admin/
+prepared functions.php payload
+[+] functions.php overwritten through wp-admin/theme-editor.php
+theme-editor RCE
+uid=1000(node) gid=1000(node) groups=1000(node)
+node
+
+HTTP_STATUS:200
+
+[+] RCE CONFIRMED via the Theme File Editor.
