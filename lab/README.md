@@ -267,4 +267,9 @@ rm -rf /workspace/lab
   tiến trình web có quyền ghi filesystem.
 - `evidence/environment.txt` — phiên bản WordPress/PHP, user, quyền, cấu hình
   liên quan.
+- `README-privesc.md` + `evidence/subscriber-escalation.txt`,
+  `evidence/registration-misconfig.txt`,
+  `evidence/credential-and-enumeration.txt`,
+  `evidence/sqlite-db-exposure.txt` — kiểm thử leo quyền subscriber → admin và
+  tạo user khi chưa đăng nhập.
 

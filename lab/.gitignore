@@ -4,6 +4,8 @@ downloads/
 /bin/php
 /bin/wp-cli.phar
 /.cookies.txt
+/.lowpriv-cookies.txt
+/.lowpriv-credentials
 /.admin-credentials
 /.env
 /*.zip

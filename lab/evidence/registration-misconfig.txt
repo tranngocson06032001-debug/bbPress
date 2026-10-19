@@ -1,0 +1,17 @@
+== Unauthenticated user creation / default-role demo ==
+clone: /tmp/wp-reg-demo.KqQfNB (port 8910)
+
+-- control: registration disabled (WordPress default) --
+Location: http://127.0.0.1:8910/wp-login.php?registration=disabled
+  [BLOCKED] user 'demo_blocked_1037' was not created
+
+-- misconfiguration 1: registration enabled, default role Subscriber --
+Location: /wp-login.php?checkemail=registered
+  role of 'demo_sub_1037': subscriber
+
+-- misconfiguration 2: registration enabled, default role Administrator --
+Location: /wp-login.php?checkemail=registered
+  role of 'demo_admin_1037': administrator
+  [EXPLOIT] logged into wp-admin as 'demo_admin_1037' (registration email simulated)
+
+== RESULT: unauthenticated request created an Administrator ==

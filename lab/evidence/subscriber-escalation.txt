@@ -1,0 +1,48 @@
+== Subscriber privilege-escalation tests ==
+target: http://127.0.0.1:8899
+
+[+] logged in as 'lowpriv' -> http://127.0.0.1:8899/wp-admin/
+
+-- 1. Administrative screens --
+  [BLOCKED] users.php -> HTTP 403 (not allowed to list users.)
+  [BLOCKED] async-upload.php -> HTTP 500 (not allowed to upload files.)
+  [BLOCKED] customize.php -> HTTP 403 (not allowed to customize this site.)
+  [BLOCKED] plugins.php -> HTTP 403 (not allowed to access this page.)
+  [BLOCKED] user-new.php -> HTTP 403 (not allowed to create users.)
+  [BLOCKED] update-core.php -> HTTP 403 (not allowed to access this page.)
+  [BLOCKED] theme-editor.php -> HTTP 403 (not allowed to access this page.)
+  [BLOCKED] options-general.php -> HTTP 403 (not allowed to access this page.)
+  [BLOCKED] plugin-install.php -> HTTP 403 (not allowed to access this page.)
+
+-- 2. Role injection through profile.php --
+  [BLOCKED] role=administrator and wp_capabilities[] were ignored (role stays subscriber)
+
+-- 3. REST API --
+  [info]    REST nonce obtained: 682a114f4b
+POST wp/v2/users/3 -> HTTP 403 (rest_cannot_edit_roles)
+  [BLOCKED] REST POST wp/v2/users/3 denied
+POST wp/v2/users/me -> HTTP 403 (rest_cannot_edit_roles)
+  [BLOCKED] REST POST wp/v2/users/me denied
+POST wp/v2/users -> HTTP 403 (rest_cannot_create_user)
+  [BLOCKED] REST POST wp/v2/users denied
+GET wp/v2/settings -> HTTP 403 (rest_forbidden)
+  [BLOCKED] REST GET wp/v2/settings denied
+POST wp/v2/settings -> HTTP 403 (rest_forbidden)
+  [BLOCKED] REST POST wp/v2/settings denied
+GET wp/v2/plugins -> HTTP 403 (rest_cannot_view_plugins)
+  [BLOCKED] REST GET wp/v2/plugins denied
+GET wp/v2/themes -> HTTP 403 (rest_cannot_view_themes)
+  [BLOCKED] REST GET wp/v2/themes denied
+POST wp/v2/posts -> HTTP 403 (rest_cannot_create)
+  [BLOCKED] REST POST wp/v2/posts denied
+POST wp/v2/media -> HTTP 403 (rest_cannot_create)
+  [BLOCKED] REST POST wp/v2/media denied
+
+-- 4. XML-RPC --
+  [BLOCKED] wp.getUsers denied
+  [BLOCKED] wp.uploadFile denied
+
+-- 5. Stored XSS through profile fields --
+  [BLOCKED] KSES stripped HTML from display_name/description (stored: 'lowpriv' / '')
+
+== Result: 22 blocked, 0 unexpected ==

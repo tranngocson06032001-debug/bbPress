@@ -1,0 +1,22 @@
+# SQLite database exposure in the lab web root
+date: 2026-10-19T08:53:40Z
+
+## Direct download without authentication
+GET /wp-content/database/.ht.c25ad2658315472caea7517d40da937d/.ht.sqlite
+  -> HTTP 200, 491520 bytes
+  SQLite header: SQLite format 3
+
+## Extracted password hashes (masked)
+  1	admin	$wp$2y$12$hI5i...	admin@example.com
+  3	lowpriv	$wp$2y$12$QDmV...	lowpriv@example.com
+  4	weakuser	$wp$2y$12$xa4S...	weakuser@example.com
+
+## Offline verification with wp_check_password (proves hashes are usable)
+  weakuser + "Password123!" -> true   (deliberately weak demo account)
+  admin    + "Password123!" -> false  (admin password is 28 random characters)
+
+## Why the file is reachable
+  - The drop-in writes .htaccess with "DENY FROM ALL", but PHP built-in server ignores it.
+  - Directory name ".ht.<32 hex>" is random, so it is not directly guessable;
+    exposure requires directory listing, backup, debug output, or filesystem access.
+  - Apache honours the .htaccess; nginx or a misconfigured server may not.
