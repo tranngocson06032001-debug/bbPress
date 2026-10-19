@@ -1,6 +1,6 @@
 [*] target: http://127.0.0.1:8899
 [+] logged in as 'admin' -> http://127.0.0.1:8899/wp-admin/
-built /tmp/tmp.jv06yXoOOG/wp-admin-rce-lab.zip
+built /tmp/tmp.1m5XoBDgy3/wp-admin-rce-lab.zip
 [+] plugin ZIP uploaded through wp-admin
 [+] plugin activated (wp-admin/plugins.php)
 
