@@ -6,6 +6,8 @@ downloads/
 /.cookies.txt
 /.lowpriv-cookies.txt
 /.lowpriv-credentials
+/.bbpuser-cookies.txt
+/.bbpuser-credentials
 /.admin-credentials
 /.env
 /*.zip

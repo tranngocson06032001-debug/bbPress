@@ -272,4 +272,10 @@ rm -rf /workspace/lab
   `evidence/credential-and-enumeration.txt`,
   `evidence/sqlite-db-exposure.txt` — kiểm thử leo quyền subscriber → admin và
   tạo user khi chưa đăng nhập.
+- `README-bbpress-password-search.md` + `bin/password-reply-search-poc.sh`,
+  `fixtures/password-reply-search.php`,
+  `evidence/bbpress-password-reply-search.txt`,
+  `evidence/upstream-password-fix-diff.txt` — lỗ hổng High (CVSS 7.5): lộ nội
+  dung reply trong topic/forum đặt mật khẩu qua WordPress search, chưa được vá
+  trong snapshot local.
 
