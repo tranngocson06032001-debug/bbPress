@@ -1,0 +1,15 @@
+# Verification against upstream source (includes r8057)
+
+date: 2026-10-20T09:40:45Z
+upstream HEAD: 84e20bd (bbPress/bbPress)
+
+## Fixture created on fixed clone (port 8905)
+{"mark":"fixedtest","public_forum":88,"password_topic":89,"topic_reply":90,"password_forum":91,"forum_topic":92,"forum_reply":93,"private_forum":94,"private_topic":95,"private_reply":96,"hidden_forum":97,"hidden_topic":98,"hidden_reply":99}
+
+## Unauthenticated search on fixed clone
+GET /?s=REPLY_SECRET&post_type=reply
+HTTP: 200
+full reply body matches: 0
+response instead contains:
+password-protected. To view it, please enter the password below.
+password-protected. To view it, please enter the password below.

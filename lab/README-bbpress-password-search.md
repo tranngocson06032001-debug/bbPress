@@ -120,7 +120,12 @@ thu thập nội dung.
 
 ## Bản vá
 
-Upstream `e0547e55` (r8057) sửa đúng lớp lỗi này:
+Upstream `e0547e55` (r8057) sửa đúng lớp lỗi này. Tôi đã dựng một clone riêng
+chạy source upstream HEAD `84e20bd` (đã gồm r8057) và chạy lại đúng request:
+search trả về form mật khẩu, **0 match** nội dung reply
+(`evidence/upstream-fixed-verification.txt`).
+
+Các thay đổi chính:
 
 1. `src/includes/common/template.php` — thêm recursion guard và chuẩn hóa ID
    trong `bbp_get_password_required_id()`:
@@ -191,6 +196,7 @@ trên ancestor, có thể đệ quy vô hạn nếu không có guard.
 | `fixtures/password-reply-search.php` | Tạo topic/forum password + control private/hidden |
 | `fixtures/password-inherit-proof.php` | Filter chứng minh root cause (không ship) |
 | `evidence/bbpress-password-reply-search.txt` | Output PoC đầy đủ |
+| `evidence/upstream-fixed-verification.txt` | Kiểm chứng trên source upstream (đã có r8057): search trả form mật khẩu, 0 match |
 | `evidence/upstream-password-fix-diff.txt` | Diff local vs upstream r8057 |
 
 Xóa fixture sau khi thử (tuỳ chọn):
