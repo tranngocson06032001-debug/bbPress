@@ -119,6 +119,18 @@ Kết quả trả về các reply khớp chữ “e”, gồm cả reply trong t
 khẩu, kèm nguyên văn body. Kẻ tấn công có thể lặp qua các chữ cái/từ điển để
 thu thập nội dung.
 
+## Trạng thái công bố
+
+- Bản vá nằm công khai trên trunk từ **2026-10-17** (r8057), sau bản 2.6.20
+  (2026-10-15) hai ngày.
+- Chưa có tag/release **2.6.21**: tag mới nhất vẫn là `2.6.20`; người dùng bản
+  stable vẫn còn lỗi cho đến bản kế tiếp.
+- Không thấy CVE tương ứng trong NVD, không có ticket/`Props`/`Fixes #` trong
+  commit, cũng không có mục security trong CHANGELOG. Đây là fix kỹ thuật công
+  khai trên trunk nhưng **chưa được công bố như một advisory/CVE**.
+- Vì vậy đây **không phải 0-day mới**: maintainers đã biết và sửa; giá trị của
+  lab là phát hiện snapshot local thiếu bản vá và đo được tác động thực tế.
+
 ## Bản vá
 
 Upstream `e0547e55` (r8057) sửa đúng lớp lỗi này. Tôi đã dựng một clone riêng
