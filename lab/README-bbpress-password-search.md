@@ -4,9 +4,10 @@
 `CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N`
 
 Đây là bug thật, tái lập được trên checkout local (`bbPress 2.7.0-alpha-4`,
-base `7ba66af`) và đã được vá ở upstream bằng commit `e0547e55` (SVN r8057,
-`Common: Inherit forum password requirements`, `@since 2.6.21`). Snapshot local
-**chưa có** bản vá này.
+base `7ba66af`). Upstream đã có bản vá `e0547e55` (SVN r8057,
+`Common: Inherit forum password requirements`, `@since 2.6.21`) do John James
+Jacoby viết; bản vá nằm trên **trunk**, commit ghi “In trunk, for 2.7” và **chưa
+phát hành**. Snapshot local **chưa có** bản vá này.
 
 ## Tóm tắt
 
@@ -28,7 +29,7 @@ mật khẩu, thậm chí liệt kê hàng loạt bằng một từ khóa phổ 
 | Điều kiện | Có topic/forum đặt `post_password`; search bật (mặc định) |
 | Quyền cần | Không — unauthenticated |
 | Tác động | Confidentiality: High (đọc full reply body) |
-| Đã vá | upstream `e0547e55` / r8057 (`2.6.21`) |
+| Đã vá (upstream) | `e0547e55` / r8057 trên trunk, dự kiến 2.7 (`@since 2.6.21`); **chưa phát hành** |
 
 ## Nguyên nhân gốc
 
@@ -125,7 +126,15 @@ chạy source upstream HEAD `84e20bd` (đã gồm r8057) và chạy lại đúng
 search trả về form mật khẩu, **0 match** nội dung reply
 (`evidence/upstream-fixed-verification.txt`).
 
-Các thay đổi chính:
+Bản vá **không phải do tôi viết**. Tác giả upstream: John James Jacoby,
+commit `e0547e55` ngày 2026-10-17, SVN r8057. Tôi chỉ phát hiện snapshot local
+thiếu bản vá này và kiểm chứng lại.
+
+`fixtures/password-inherit-proof.php` là filter **chỉ để kiểm chứng** (không
+phải patch upstream, không được cài vào plugin); PoC tự copy nó vào
+`mu-plugins` tạm thời rồi xoá.
+
+Các thay đổi chính của upstream:
 
 1. `src/includes/common/template.php` — thêm recursion guard và chuẩn hóa ID
    trong `bbp_get_password_required_id()`:
@@ -186,7 +195,7 @@ trên ancestor, có thể đệ quy vô hạn nếu không có guard.
   `?post_type=reply&s=...` ở WAF.
 - Không dùng `post_password` cho nội dung nhạy cảm; dùng forum `private`/`hidden`
   (đã được lọc đúng) hoặc phân quyền theo role.
-- Áp dụng bản vá r8057 khi nâng cấp lên 2.6.21/2.7.
+- Áp dụng r8057 từ trunk/2.7 (hoặc bản 2.6.21 khi phát hành).
 
 ## Bằng chứng & tái lập
 
